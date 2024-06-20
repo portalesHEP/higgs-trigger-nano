@@ -68,9 +68,9 @@ def get_path_dict(year):
                 'VBF_DiPFJet75_45_Mjj850_DiPFJet60',
             ],
             'VBFmet'  : [
-                'VBF_DiPFJet80_45_Mjj650_PFMET85',
-                'VBF_DiPFJet80_45_Mjj750_PFMET85',
-                'VBF_DiPFJet80_45_Mjj750_PFMET85',
+                'VBF_DiPFJet80_45_Mjj650_PFMETNoMu85',
+                'VBF_DiPFJet80_45_Mjj750_PFMETNoMu85',
+                'VBF_DiPFJet80_45_Mjj750_PFMETNoMu85',
             ],
             'VBFphot' : [
                 'VBF_DiPFJet50_Mjj650_Photon22',
@@ -326,7 +326,7 @@ class TrigBtagAnalysis(Module):
 
 
     def analyze(self, event):
-        met = Object(event, "CaloMET")
+        met = Object(event, "PFMET")
         #met       = Object(event, "MET") # Standard MET missing in latest PromptReco NanoAODs???
         hlt       = Object(event, "HLT")
         PV        = Object(event, "PV" )
@@ -566,7 +566,7 @@ if __name__ == "__main__":
                                    'VBFphot',
                                    'VBFtau'])
     parser.add_argument('--era', default = '24B',
-                        choices = ['23C','23D','24B','24ABC','Winter23']) # more to be added
+                        choices = ['23C','23D','24B','24C','24D','24E','24ABC','Winter23']) # more to be added
     parser.add_argument('--input', default = '/store/data/Run2023C/Muon0/NANOAOD/PromptNanoAODv12_v2-v2/2820000/c4f41a7d-89c6-46dc-bad4-e83ab5ea39ed.root') # ~50k evts
     parser.add_argument('--outdir', default = './')
     parser.add_argument('--id', default = '')
@@ -579,8 +579,12 @@ if __name__ == "__main__":
 
     histFile = "{}/histos_{}_{}_{}.root".format(args.outdir,args.era,args.version,args.id)
 
-    golden_json='./data/golden_json/Cert_Collisions2023_eraC_367095_368224_Golden.json'
-    if args.era=='23C':
+    golden_json={
+        "23C": './data/golden_json/Cert_Collisions2023_eraC_367095_368224_Golden.json',
+        "24B": './data/golden_json/Cert_Collisions2024_eraB_Golden.json',
+        "24C": './data/golden_json/Cert_Collisions2024_eraC_Golden.json',
+}
+    if args.era in golden_json:
         p=PostProcessor(
             ".",
             files,
@@ -590,7 +594,7 @@ if __name__ == "__main__":
             noOut=True,
             histFileName=histFile,
             histDirName="VBFNanoAOD",
-            jsonInput=golden_json
+            jsonInput=golden_json[args.era]
         )
     else: # no golden json (yet) for 24
         p=PostProcessor(

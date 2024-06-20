@@ -1,0 +1,5 @@
+/store/data/Run2024F/Muon0/NANOAOD/PromptReco-v1/000/381/984/00000/0dd06ddc-e735-476e-980e-2e8a70f17aab.root
+/store/data/Run2024F/Muon0/NANOAOD/PromptReco-v1/000/381/987/00000/9f1feaf4-cee1-4f6d-b077-eb359ee66e84.root
+/store/data/Run2024F/Muon0/NANOAOD/PromptReco-v1/000/382/013/00000/e7cd77a2-8896-495c-bb58-f48983869286.root
+/store/data/Run2024F/Muon0/NANOAOD/PromptReco-v1/000/382/010/00000/2e3334d7-01ed-4266-b34f-0b7ab4a5f84e.root
+/store/data/Run2024F/Muon0/NANOAOD/PromptReco-v1/000/382/014/00000/b096d1f9-b32c-4dad-bfdf-48725d3e27cc.root

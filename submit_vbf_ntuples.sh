@@ -4,7 +4,11 @@ WORKDIR=/home/llr/cms/portales/HIGtrigger/higgs-trigger-nanoaod/CMSSW_10_6_18/sr
 DATA_DIR=${WORKDIR}/data/dataset_lists/
 
 declare -A TRIGGERS_PER_ERA
-TRIGGERS_PER_ERA["24ABC"]="VBFincl"
+#TRIGGERS_PER_ERA["24ABC"]="VBFincl"
+TRIGGERS_PER_ERA["24B"]="VBFincl"
+TRIGGERS_PER_ERA["24C"]="VBFincl"
+TRIGGERS_PER_ERA["24D"]="VBFincl"
+TRIGGERS_PER_ERA["24E"]="VBFincl"
 
 for era in ${!TRIGGERS_PER_ERA[@]};
 do
@@ -17,7 +21,7 @@ do
 	cat $FILE_LIST | while read line
 
 	do
-	    EXPECTED_OUT=histoFiles_all/tmp/${era}/goodfiles/histos_Run${era}_${trigger}_${JOB_ID}.root
+	    EXPECTED_OUT=ntuples_out/tmp/${era}/goodfiles/histos_Run${era}_${trigger}_${JOB_ID}.root
 	    (( NTOT++ ))
 	    if [ -f "$EXPECTED_OUT" ]; then
 		let JOB_ID++

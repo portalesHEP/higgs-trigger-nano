@@ -29,4 +29,4 @@ echo "python vbf_ntuples.py --era ${ERA} --version ${TRIGGER} --input ${SAMPLE} 
 
 python vbf_ntuples.py --era ${ERA} --version ${TRIGGER} --input ${SAMPLE} --outdir ./ntuples_out/${ERA} --id ${ID}
 
-mv ./histoFiles_all/tmp/${ERA}/*_${ID}.*root ./ntuples_out/${ERA}/goodfiles/
+mv ./ntuples_out/${ERA}/*_${ID}.*root ./ntuples_out/${ERA}/goodfiles/
