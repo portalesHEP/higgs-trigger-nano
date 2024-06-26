@@ -92,10 +92,10 @@ def pass_VBFdijet(jets, vbf1cut, vbf2cut, centcut, mjjcut, ctagged=False):
                 continue
 
             #if idx_cjet1>-1 and jet.btagDeepB>0.2783: 
-	    if idx_cjet1>-1 and jet.btagDeepCvB>0.4:
+        if idx_cjet1>-1 and jet.btagDeepCvB>0.4:
                 idx_cjet2=idx
             #if idx_cjet1==-1 and jet.btagDeepB>0.71:
-            if idx_cjet1==-1 and jet.btagDeepCvL>0.225:
+        if idx_cjet1==-1 and jet.btagDeepCvL>0.225:
                 idx_cjet1=idx
 
         if idx_cjet1==-1 or idx_cjet2==-1:
