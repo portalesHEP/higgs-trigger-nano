@@ -78,9 +78,9 @@ def get_path_dict(year):
                 'VBF_DiPFJet50_Mjj750_Photon22',
             ],
             'VBFele'  : [
-                'VBF_DiPFJet45_Mjj600_Ele22_eta2p1_WPTight_Gsf',
-                'VBF_DiPFJet45_Mjj650_Ele22_eta2p1_WPTight_Gsf',
-                'VBF_DiPFJet45_Mjj650_Ele22_eta2p1_WPTight_Gsf',
+                'VBF_DiPFJet50_Mjj600_Ele22_eta2p1_WPTight_Gsf',
+                'VBF_DiPFJet50_Mjj650_Ele22_eta2p1_WPTight_Gsf',
+                'VBF_DiPFJet50_Mjj650_Ele22_eta2p1_WPTight_Gsf',
             ],
             'VBFmu'   : [
                 'VBF_DiPFJet95_45_Mjj750_Mu3_TrkIsoVVL',
@@ -91,6 +91,21 @@ def get_path_dict(year):
                 'VBF_DiPFJet45_Mjj650_MediumDeepTauPFTauHPS45_L2NN_eta2p1',
                 'VBF_DiPFJet45_Mjj750_MediumDeepTauPFTauHPS45_L2NN_eta2p1',
                 'VBF_DiPFJet45_Mjj750_MediumDeepTauPFTauHPS45_L2NN_eta2p1',
+            ],
+            'VBFtauPNet' : [
+                'VBF_DiPFJet45_Mjj650_PNetTauhPFJet45_L2NN_eta2p3',
+                'VBF_DiPFJet45_Mjj750_PNetTauhPFJet45_L2NN_eta2p3',
+                'VBF_DiPFJet45_Mjj750_PNetTauhPFJet45_L2NN_eta2p3',
+            ],
+            'VBFditau' : [
+                'VBF_DoubleMediumDeepTauPFTauHPS20_eta2p1',
+                'VBF_DoubleMediumDeepTauPFTauHPS20_eta2p1',
+                'VBF_DoubleMediumDeepTauPFTauHPS20_eta2p1',
+            ],
+            'VBFditauPNet' : [
+                'VBF_DoublePNetTauhPFJet20_eta2p2',
+                'VBF_DoublePNetTauhPFJet20_eta2p2',
+                'VBF_DoublePNetTauhPFJet20_eta2p2',
             ],
         }
         return triggers
@@ -173,6 +188,8 @@ class TrigBtagAnalysis(Module):
         self.phot_id  = array('f',99*[0])
         self.MET_et   = array('f',99*[0])
         self.MET_phi  = array('f',99*[0])
+        self.PUPPIMET_et  = array('f',99*[0])
+        self.PUPPIMET_phi = array('f',99*[0])
         self.out.Branch( "njets",    self.njets    , "njets/I" )  
         self.out.Branch( "jets_pt",  self.jets_pt  , "jets_pt[njets]/F" )   
         self.out.Branch( "jets_eta", self.jets_eta , "jets_eta[njets]/F")
@@ -208,6 +225,8 @@ class TrigBtagAnalysis(Module):
         self.out.Branch( "phot_id",  self.phot_id  , "phot_id[nphot]/F" )
         self.out.Branch( "MET_et",   self.MET_et   , "MET_et/F"  )   
         self.out.Branch( "MET_phi",  self.MET_phi  , "MET_phi/F" )
+        self.out.Branch( "PUPPIMET_et",  self.PUPPIMET_et   , "PUPPIMET_et/F"  )   
+        self.out.Branch( "PUPPIMET_phi", self.PUPPIMET_phi  , "PUPPIMET_phi/F"  )   
         # --
 
         # HLT objects
@@ -278,6 +297,9 @@ class TrigBtagAnalysis(Module):
         self.passVBFele     = np.empty((1), dtype="float32")
         self.passVBFphot    = np.empty((1), dtype="float32")
         self.passVBFtau     = np.empty((1), dtype="float32")
+        self.passVBFtauPNet = np.empty((1), dtype="float32")
+        self.passVBFditau   = np.empty((1), dtype="float32")
+        self.passVBFditauPNet   = np.empty((1), dtype="float32")
         self.out.Branch("passVBFincl_2j", self.passVBFincl_2j , "passVBFincl_2j/F" )
         self.out.Branch("passVBFincl_3j", self.passVBFincl_3j , "passVBFincl_3j/F" )
         self.out.Branch("passVBFjets_4j", self.passVBFjets_4j , "passVBFjets_4j/F" )
@@ -290,6 +312,9 @@ class TrigBtagAnalysis(Module):
         self.out.Branch("passVBFele"    , self.passVBFele     , "passVBFele/F"     )
         self.out.Branch("passVBFphot"   , self.passVBFphot    , "passVBFphot/F"    )
         self.out.Branch("passVBFtau"    , self.passVBFtau     , "passVBFtau/F"     )
+        self.out.Branch("passVBFtauPNet", self.passVBFtauPNet , "passVBFtauPNet/F"     )
+        self.out.Branch("passVBFditau"    , self.passVBFditau     , "passVBFditau/F"     )
+        self.out.Branch("passVBFditauPNet", self.passVBFditauPNet , "passVBFditauPNet/F"     )
 
 
         self.passHHparking = np.empty((1), dtype="float32")
@@ -327,11 +352,10 @@ class TrigBtagAnalysis(Module):
 
     def analyze(self, event):
         met = Object(event, "PFMET")
-        #met       = Object(event, "MET") # Standard MET missing in latest PromptReco NanoAODs???
+        PUPPImet = Object(event, "PuppiMET")
         hlt       = Object(event, "HLT")
         PV        = Object(event, "PV" )
-        PU = Object(event,"PV")
-        #PU        = Object(event, "Pileup" ) # PU collection missing in latest PromptReco NanoAODs???
+        PU        = Object(event, "PV")
         L1        = Object(event, "L1")
         jets      = Collection(event, "Jet")
         muons     = Collection(event,"Muon")
@@ -407,6 +431,8 @@ class TrigBtagAnalysis(Module):
               
         self.MET_et[0]  = met.pt
         self.MET_phi[0] = met.phi
+        self.PUPPIMET_et[0]  = PUPPImet.pt
+        self.PUPPIMET_phi[0] = PUPPImet.phi
 
         goodelectrons = [t for t in electrons if t.pt>20. and abs(t.eta)<2.4 ]
         self.nele[0] = len(goodelectrons)
@@ -417,7 +443,8 @@ class TrigBtagAnalysis(Module):
             #self.ele_id[idx]  = goodelectrons[idx].mvaIso_Fall17V2_WP80
             self.ele_id[idx]  = goodelectrons[idx].mvaIso
 
-        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=4 and t.idDeepTau2018v2p5VSmu>=8 and t.idDeepTau2018v2p5VSjet>=16 ] 
+        # Tau reccomendation for MuTau FS is VVLoose vs Electron, Tight vs Muon, Medium vs Jet
+        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=2 and t.idDeepTau2018v2p5VSmu>=4 and t.idDeepTau2018v2p5VSjet>=5 ] 
         self.ntau[0] = len(goodtaus)
         for idx, m in enumerate(goodtaus):
             self.tau_pt[idx]  = goodtaus[idx].pt      
@@ -449,6 +476,9 @@ class TrigBtagAnalysis(Module):
         self.passVBFele[0]     = hlt_accept(triggers["VBFele"][0])
         self.passVBFphot[0]    = hlt_accept(triggers["VBFphot"][0])
         self.passVBFtau[0]     = hlt_accept(triggers["VBFtau"][0])
+        self.passVBFtauPNet[0] = hlt_accept(triggers["VBFtauPNet"][0])
+        self.passVBFditau[0]     = hlt_accept(triggers["VBFditau"][0])
+        self.passVBFditauPNet[0] = hlt_accept(triggers["VBFditauPNet"][0])
 
         self.passVBFmet_old_2j[0]  = 0#hlt_accept("DiJet110_35_Mjj650_PFMET110")
         self.passVBFmet_old_3j[0]  = 0#hlt_accept("TripleJet110_35_35_Mjj650_PFMET110")
@@ -546,11 +576,6 @@ class TrigBtagAnalysis(Module):
         return True
 
 
-
-
-
-
-
 TrigBtagAnalysisConstr = lambda: TrigBtagAnalysis()
 
 if __name__ == "__main__":
@@ -577,13 +602,17 @@ if __name__ == "__main__":
     files = ['root://cms-xrd-global.cern.ch/' + args.input if '/store/' in args.input else args.input]
     print(files)
 
-    histFile = "{}/histos_{}_{}_{}.root".format(args.outdir,args.era,args.version,args.id)
+    histFile = f"{args.outdir}/histos_{args.era}_{args.version}_{args.id}.root"
 
     golden_json={
         "23C": './data/golden_json/Cert_Collisions2023_eraC_367095_368224_Golden.json',
         "24B": './data/golden_json/Cert_Collisions2024_eraB_Golden.json',
         "24C": './data/golden_json/Cert_Collisions2024_eraC_Golden.json',
-}
+        # D and E use a big JSON which contains C, D, Ev1, and Ev2
+        "24D": './data/golden_json/Cert_Collisions2024_378981_381594_Golden.json',
+        "24E": './data/golden_json/Cert_Collisions2024_378981_381594_Golden.json',
+        #"24Ev2": './data/golden_json/Cert_Collisions2024_381477_381594_Golden.json',
+    }
     if args.era in golden_json:
         p=PostProcessor(
             ".",
