@@ -447,8 +447,12 @@ class TrigBtagAnalysis(Module):
             #self.ele_id[idx]  = goodelectrons[idx].mvaIso_Fall17V2_WP80
             self.ele_id[idx]  = goodelectrons[idx].mvaIso
 
-        # Tau reccomendation for MuTau FS is VVLoose vs Electron, Tight vs Muon, Medium vs Jet
-        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=1 and t.idDeepTau2018v2p5VSmu>=1 and t.idDeepTau2018v2p5VSjet>=1 ]
+        # no ID requirements, to do PNet/DeepTau comparisons
+        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4]
+        # loosest ID requirements
+        #goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=1 and t.idDeepTau2018v2p5VSmu>=1 and t.idDeepTau2018v2p5VSjet>=1 ]
+        # Tau POG recommendations for MuTau (i.e. this is what Tau CQM uses)
+        #goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=2 and t.idDeepTau2018v2p5VSmu>=4 and t.idDeepTau2018v2p5VSjet>=5 ]
         self.ntau[0] = len(goodtaus)
         for idx, m in enumerate(goodtaus):
             self.tau_pt[idx]  = goodtaus[idx].pt      
