@@ -180,7 +180,9 @@ class TrigBtagAnalysis(Module):
         self.tau_pt   = array('f',99*[0])
         self.tau_eta  = array('f',99*[0])
         self.tau_phi  = array('f',99*[0])
-        self.tau_id   = array('f',99*[0])
+        self.tau_idJet   = array('f',99*[0])
+        self.tau_idEle   = array('f',99*[0])
+        self.tau_idMuon  = array('f',99*[0])
         self.nphot    = array('i',   [0])
         self.phot_pt  = array('f',99*[0])
         self.phot_eta = array('f',99*[0])
@@ -217,7 +219,9 @@ class TrigBtagAnalysis(Module):
         self.out.Branch( "tau_pt",   self.tau_pt   , "tau_pt[ntau]/F"  )   
         self.out.Branch( "tau_eta",  self.tau_eta  , "tau_eta[ntau]/F" )
         self.out.Branch( "tau_phi",  self.tau_phi  , "tau_phi[ntau]/F" )
-        self.out.Branch( "tau_id",   self.tau_id   , "tau_id[ntau]/F"  )
+        self.out.Branch( "tau_idJet",   self.tau_idJet   , "tau_idJet[ntau]/F"  )
+        self.out.Branch( "tau_idEle",   self.tau_idEle   , "tau_idEle[ntau]/F"  )
+        self.out.Branch( "tau_idMuon",   self.tau_idMuon   , "tau_idMuon[ntau]/F"  )
         self.out.Branch( "nphot",    self.nphot    , "nphot/I" )  
         self.out.Branch( "phot_pt",  self.phot_pt  , "phot_pt[nphot]/F" )   
         self.out.Branch( "phot_eta", self.phot_eta , "phot_eta[nphot]/F")
@@ -444,13 +448,15 @@ class TrigBtagAnalysis(Module):
             self.ele_id[idx]  = goodelectrons[idx].mvaIso
 
         # Tau reccomendation for MuTau FS is VVLoose vs Electron, Tight vs Muon, Medium vs Jet
-        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=2 and t.idDeepTau2018v2p5VSmu>=4 and t.idDeepTau2018v2p5VSjet>=5 ] 
+        goodtaus = [t for t in taus if t.pt>20. and abs(t.eta)<2.4 and t.idDeepTau2018v2p5VSe>=1 and t.idDeepTau2018v2p5VSmu>=1 and t.idDeepTau2018v2p5VSjet>=1 ]
         self.ntau[0] = len(goodtaus)
         for idx, m in enumerate(goodtaus):
             self.tau_pt[idx]  = goodtaus[idx].pt      
             self.tau_eta[idx] = goodtaus[idx].eta     
             self.tau_phi[idx] = goodtaus[idx].phi     
-            self.tau_id[idx]  = goodtaus[idx].idDeepTau2018v2p5VSjet
+            self.tau_idJet[idx]  = goodtaus[idx].idDeepTau2018v2p5VSjet
+            self.tau_idEle[idx]  = goodtaus[idx].idDeepTau2018v2p5VSe
+            self.tau_idMuon[idx] = goodtaus[idx].idDeepTau2018v2p5VSmu
 
         #print('getting triggers for {}'.format(self.period))
         if '23' in self.period:
