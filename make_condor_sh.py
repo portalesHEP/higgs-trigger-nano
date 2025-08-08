@@ -29,11 +29,14 @@ def trim_dir(indir, searchword, splitter="/"):
 cwd = os.getcwd() #current working directory (place script is executed from)
 work_dir   = cwd
 CMSSW_dir  = trim_dir(cwd, "src")
-output_dir = "/eos/user/b/ballmond/VBFparkingLouis"
+output_dir = "/eos/user/l/lportale/VBFparkingNtuples"
 
 era = args.era
 version = args.version
-input_filelist = work_dir + "/data/dataset_lists/Run" + era + "_MUON.txt"
+#input_filelist = work_dir + "/Zmu_nano_grouped.tmp.txt" 
+#input_filelist = work_dir + "/data/dataset_lists/Run" + era + "_Muon.txt"
+input_filelist = work_dir + "/data/dataset_lists/Run" + era + "_Muon_renano.txt"
+
 
 print()
 print('\033[94m',end="") # set terminal lilac
@@ -54,12 +57,12 @@ NanoAOD_files = []
 with open(input_filelist) as f:
   NanoAOD_files = f.read().splitlines()
 
-job_file_name = "condor_jobs.sh"
+job_file_name = f"condor_jobs_{era}_{version}.sh"
 SCRAM_ARCH = "el9_amd64_gcc12"
 with open(job_file_name, "w") as job_file:
   print("#!/bin/sh", file=job_file)
   print(f"cd {CMSSW_dir}", file=job_file)
-  print("export X509_USER_PROXY=/afs/cern.ch/user/b/ballmond/.x509up_u134427", file=job_file)
+  print("export X509_USER_PROXY=/afs/cern.ch/user/l/lportale/x509up_u102305", file=job_file)
   print("source /cvmfs/cms.cern.ch/cmsset_default.sh", file=job_file)
   print(f"export SCRAM_ARCH={SCRAM_ARCH}", file=job_file)
   print("eval `scramv1 runtime -sh`", file=job_file)
@@ -72,7 +75,7 @@ with open(job_file_name, "w") as job_file:
 
 print(f"commands printed to {job_file_name}")
 
-sub_file_name = "sub_condor.sub"
+sub_file_name = f"sub_condor_{era}_{version}.sub"
 job_info_dir  = "_".join([version,era,"Jobs"])
 with open(sub_file_name, "w") as sub_file:
   print(f"executable = {work_dir}/{job_file_name}", file=sub_file)
@@ -80,7 +83,8 @@ with open(sub_file_name, "w") as sub_file:
   print(f"output     = {work_dir}/{job_info_dir}/job.$(ClusterId).$(ProcId).out", file=sub_file)
   print(f"error      = {work_dir}/{job_info_dir}/job.$(ClusterId).$(ProcId).err", file=sub_file)
   print(f"log        = {work_dir}/{job_info_dir}/job.$(ClusterId).log", file=sub_file)
-  print("+JobFlavour = \"espresso\"", file=sub_file)
+  print("+JobFlavour = \"longlunch\"", file=sub_file)
+  #print("+JobFlavour = \"espresso\"", file=sub_file)
   print("", file=sub_file)
   print("# Send the job to Held state on failure.", file=sub_file)
   print("on_exit_hold = (ExitBySignal == True) || (ExitCode != 0) || (!(ExitSignal =?= UNDEFINED))", file=sub_file)

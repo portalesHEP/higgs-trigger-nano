@@ -6,9 +6,9 @@ Framework to run on PromptNanoAOD for trigger efficiency evaluation
 Setup CMSSW
 ```
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-export SCRAM_ARCH="slc7_amd64_gcc700"
-cmsrel CMSSW_10_6_18
-cd CMSSW_10_6_18/src
+export SCRAM_ARCH="el9_amd64_gcc10"
+cmsrel CMSSW_14_0_9
+cd CMSSW_14_0_9/src
 cmsenv
 git clone git@github.com:portalesHEP/higgs-trigger-nano.git
 ```

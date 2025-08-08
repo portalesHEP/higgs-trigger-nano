@@ -1,0 +1,7 @@
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/1debf449-69cd-4f55-90cb-b35729f0163b.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/6eb73843-2482-4dfd-b3ca-84861e9270a7.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/b7e4c9b4-bf6d-4d66-84d7-b8d398578f6d.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/1ea3546f-5dfb-4244-8a25-a15e3e089db9.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/f0ad4320-78c7-4c60-9bf2-9ac45f090195.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/9b65a4e2-0a31-4e1d-ab10-540a50c5b9df.root
+/store/mc/Run3Winter25NanoAOD/VBFHHTo2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/NANOAODSIM/142X_mcRun3_2025_realistic_v7-v2/120000/1102ecf2-aa84-4abb-84e7-66cb9acf85b2.root

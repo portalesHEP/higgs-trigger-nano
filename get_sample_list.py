@@ -13,7 +13,7 @@ datasets = {
     #'Run22D_JetMET' : '/JetMET/Run2022D-PromptNanoAODv10_v2-v1/NANOAOD',
     #'Run22E_JetMET' : '/JetMET/Run2022E-PromptNanoAODv10_v1-v3/NANOAOD',
     #'Run22F_JetMET' : '/JetMET/Run2022F-PromptNanoAODv10_v1-v2/NANOAOD',
-    #'Run22G_JetMET' : '/JetMET/Run2022G-PromptNanoAODv10_v1-v1/NANOAOD',
+    #'Run22G_JetMET' : '/JetMET/Run2022G-PromptNanoAODv10_v1-v1/NANOAOD',IsoMu24_eta2p1_PFHT250_QuadPFJet25_PNet1Tauh0p50
 
     #'Run18D_SingleMuon' : '/SingleMuon/Run2018D-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD  run=325022',
     #'Run18D_JetHT' : '/JetHT/Run2018D-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD run=325022',
@@ -34,20 +34,42 @@ datasets = {
 
 #    'Run24A_Muon0':'/Muon0/Run2024A-PromptReco-v1/NANOAOD', 
 #    'Run24A_Muon1':'/Muon1/Run2024A-PromptReco-v1/NANOAOD',
-#    'Run24B_Muon0':'/Muon0/Run2024B-PromptReco-v1/NANOAOD',
-#    'Run24B_Muon1':'/Muon1/Run2024B-PromptReco-v1/NANOAOD',
-#    'Run24C_Muon0':'/Muon0/Run2024C-PromptReco-v1/NANOAOD',
-#    'Run24C_Muon1':'/Muon1/Run2024C-PromptReco-v1/NANOAOD',
-    'Run24D_Muon0':'/Muon0/Run2024D-PromptReco-v1/NANOAOD',
-    'Run24D_Muon1':'/Muon1/Run2024D-PromptReco-v1/NANOAOD',
-    'Run24E1_Muon0':'/Muon0/Run2024E-PromptReco-v1/NANOAOD',
-    'Run24E1_Muon1':'/Muon1/Run2024E-PromptReco-v1/NANOAOD',
-    'Run24E2_Muon0':'/Muon0/Run2024E-PromptReco-v2/NANOAOD',
-    'Run24E2_Muon1':'/Muon1/Run2024E-PromptReco-v2/NANOAOD',
-    'Run24F_Muon0':'/Muon0/Run2024F-PromptReco-v1/NANOAOD',
-    'Run24F_Muon1':'/Muon1/Run2024F-PromptReco-v1/NANOAOD',
+#   'Run24B_Muon0':'/Muon0/Run2024B-PromptReco-v1/NANOAOD',
+#   'Run24B_Muon1':'/Muon1/Run2024B-PromptReco-v1/NANOAOD',
+#   'Run24C_Muon0':'/Muon0/Run2024C-PromptReco-v1/NANOAOD',
+#   'Run24C_Muon1':'/Muon1/Run2024C-PromptReco-v1/NANOAOD',
+#   'Run24D_Muon0':'/Muon0/Run2024D-PromptReco-v1/NANOAOD',
+#   'Run24D_Muon1':'/Muon1/Run2024D-PromptReco-v1/NANOAOD',
+#   'Run24E1_Muon0':'/Muon0/Run2024E-PromptReco-v1/NANOAOD',
+#   'Run24E1_Muon1':'/Muon1/Run2024E-PromptReco-v1/NANOAOD',
+#   'Run24E2_Muon0':'/Muon0/Run2024E-PromptReco-v2/NANOAOD',
+#   'Run24E2_Muon1':'/Muon1/Run2024E-PromptReco-v2/NANOAOD',
+#   'Run24F_Muon0':'/Muon0/Run2024F-PromptReco-v1/NANOAOD',
+#   'Run24F_Muon1':'/Muon1/Run2024F-PromptReco-v1/NANOAOD',
 
-#
+#   'Run24G_Muon0':'/Muon0/Run2024G-PromptReco-v1/NANOAOD',
+#   'Run24G_Muon1':'/Muon1/Run2024G-PromptReco-v1/NANOAOD',
+#   'Run24H_Muon0':'/Muon0/Run2024H-PromptReco-v1/NANOAOD',
+#   'Run24H_Muon1':'/Muon1/Run2024H-PromptReco-v1/NANOAOD',
+#   'Run24I_Muon0':'/Muon0/Run2024I-PromptReco-v1/NANOAOD',
+#   'Run24I_Muon1':'/Muon1/Run2024I-PromptReco-v1/NANOAOD',
+
+#    'Run25B_Muon0':'/Muon0/Run2025B-PromptReco-v1/NANOAOD',
+#    'Run25B_Muon1':'/Muon1/Run2025B-PromptReco-v1/NANOAOD',
+    'Run25C_Muon0':'/Muon0/Run2025C-PromptReco-v1/NANOAOD',
+    'Run25C_Muon1':'/Muon1/Run2025C-PromptReco-v1/NANOAOD',
+    'Run25D_Muon0':'/Muon0/Run2025D-PromptReco-v1/NANOAOD',
+    'Run25D_Muon1':'/Muon1/Run2025D-PromptReco-v1/NANOAOD',
+
+
+
+
+
+    
+#    'Winter24_DYmuTau' : '/DYto2TautoMuTauh_M-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Winter24NanoAOD-133X_mcRun3_2024_realistic_v9-v2/NANOAODSIM',
+
+
+    
 #    'Run23C_JetMET0-1': '/JetMET0/Run2023C-PromptMiniAOD_v1_NanoAODv12-v1/NANOAOD',
 #    'Run23C_JetMET0-2': '/JetMET0/Run2023C-PromptMiniAOD_v2_NanoAODv12-v1/NANOAOD',
 #    'Run23C_JetMET0-3': '/JetMET0/Run2023C-PromptMiniAOD_v3_NanoAODv12-v1/NANOAOD',
